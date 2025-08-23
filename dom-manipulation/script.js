@@ -27,7 +27,7 @@ const cite = document.createElement('cite');
 
 renderQuotes(quotes[1]);
 
-function displayRandomQuote() {
+function showRandomQuote() {
   const randomindex = Math.floor(Math.random() * quotes.length);
   const randomQuote = quotes[randomindex];
   renderQuotes(randomQuote);
@@ -35,7 +35,7 @@ function displayRandomQuote() {
 
 }
 
-newQuoteBtn.addEventListener('click', displayRandomQuote);
+newQuoteBtn.addEventListener('click', showRandomQuote);
 
 const newQuoteText = document.getElementById('newQuoteText');
 const newQuoteCategory = document.getElementById('newQuoteCategory');
