@@ -1,10 +1,26 @@
-
-const quotes = [
+let quotes = loadQuotes();
+if (quotes.length === 0) {
+ quotes = [
   {"text":" The best way to get started is to quit talking and begin doing.", "category":"Motivation"},
   {"text":" Don't let yesterday take up too much of today.", "category":"Life"},
   {"text":" It's not whether you get knocked down, it's whether you get up.", "category":"Resilience"},
 ];
+saveQuotes();
+}
 
+function saveQuotes() {
+  localStorage.setItem('quotes', JSON.stringify(quotes));
+}
+
+function loadQuotes() {
+  const storedQuotes = localStorage.getItem('quotes');
+  if (storedQuotes) {
+    return JSON.parse(storedQuotes);
+  }
+  else {
+  return [];
+}
+}
 const quoteDisplay = document.getElementById('quoteDisplay');
 const newQuoteBtn = document.getElementById('newQuote');
 
@@ -51,12 +67,15 @@ function addQuote() {
   }
 
   quotes.push({text, category});
+  saveQuotes();
+  
   newQuoteText.value = '';
   newQuoteCategory.value = '';
 
   
 }
 addQuoteBtn.addEventListener('click', addQuote);
+const formSection = document.querySelector('.add-quote-section');
 
 function createAddQuoteForm() {
 
@@ -81,8 +100,18 @@ function createAddQuoteForm() {
   section.appendChild(textInput);
   section.appendChild(categoryInput); 
   section.appendChild(addButton);
-
-  document.body.appendChild(section);
+  formSection.appendChild(section);
 }
 
 createAddQuoteForm();
+
+function importFromJsonFile(event) {
+    const fileReader = new FileReader();
+    fileReader.onload = function(event) {
+      const importedQuotes = JSON.parse(event.target.result);
+      quotes.push(...importedQuotes);
+      saveQuotes();
+      alert('Quotes imported successfully!');
+    };
+    fileReader.readAsText(event.target.files[0]);
+  }
