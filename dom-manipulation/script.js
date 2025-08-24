@@ -321,7 +321,7 @@ async function syncWithServer() {
       (errors ? `, ${errors} error(s)` : '') +
       (conflicts ? `, resolved ${conflicts} conflict(s) (server version kept).` : '.')
     );
-
+     setSyncStatus("Quotes synced with server!");
     
     if (typeof filterQuotes === 'function') {
       filterQuotes();
