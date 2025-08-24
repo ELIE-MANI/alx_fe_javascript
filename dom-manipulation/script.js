@@ -302,6 +302,12 @@ function setSyncStatus(msg) {
   sessionStorage.setItem('lastSyncMessage', msg); 
 }
 
+
+async function fetchQuotesFromServer(limit = 10) {
+  return await fetchServerQuotes(limit);
+}
+
+
 async function syncWithServer() {
   try {
     setSyncStatus('Syncing…');
