@@ -335,6 +335,11 @@ async function syncWithServer() {
   }
 }
 
+function syncQuotes() {
+  return syncWithServer();
+}
+
+
 
 document.getElementById('syncNow')?.addEventListener('click', syncWithServer);
 
