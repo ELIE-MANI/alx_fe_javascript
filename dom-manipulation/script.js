@@ -131,7 +131,7 @@ function importFromJsonFile(event) {
     fileReader.readAsText(event.target.files[0]);
   }
 
-  function populateCategotiries() {
+  function populateCategories() {
     const CategoryFilter = document.getElementById('categoryFilter');
 
     CategoryFilter.innerText = '<option value="all">All Categories</option>';
