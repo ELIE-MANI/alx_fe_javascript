@@ -57,7 +57,7 @@ const newQuoteText = document.getElementById('newQuoteText');
 const newQuoteCategory = document.getElementById('newQuoteCategory');
 const addQuoteBtn = document.getElementById('addQuoteBtn');
 
-function addQuote() {
+function addQuote() {ad
   const text = newQuoteText.value.trim();
   const category = newQuoteCategory.value.trim();
 
@@ -72,7 +72,8 @@ function addQuote() {
   newQuoteText.value = '';
   newQuoteCategory.value = '';
 
-  
+  populateCategotiries();
+
 }
 addQuoteBtn.addEventListener('click', addQuote);
 const formSection = document.querySelector('.add-quote-section');
@@ -129,3 +130,44 @@ function importFromJsonFile(event) {
     };
     fileReader.readAsText(event.target.files[0]);
   }
+
+  function populateCategotiries() {
+    const CategoryFilter = document.getElementById('categoryFilter');
+
+    CategoryFilter.innerText = '<option value="all">All Categories</option>';
+    const categories = [...new Set(quotes.map(quote => quote.category))];
+
+    categories.forEach(category => {
+      const option = document.createElement('option');
+      option.value = category;
+      option.textContent = category;
+      CategoryFilter.appendChild(option);
+    });
+
+    const savedFilter = localStorage.getItem('selectedCategory');
+    if (savedFilter) {
+      CategoryFilter.value = savedFilter;
+      filterQuotes();
+    }
+
+}
+
+function filterQuotes() {
+const categoryFilter = document.getElementById('categoryFilter');
+const selectedCategory = categoryFilter.value;
+
+localStorage.setItem('selectedCategory', selectedCategory);
+
+quoteDisplay.innerHTML = '';
+
+const filteredQuotes = selectedCategory === 'all' ? quotes : quotes.filter(quote => quote.category === selectedCategory);
+
+filterQuotes.forEach(quote => renderQuotes(quote));
+
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  populateCategotiries();
+  filterQuotes();
+
+} );
